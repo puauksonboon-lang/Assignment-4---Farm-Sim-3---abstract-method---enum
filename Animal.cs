@@ -1,30 +1,29 @@
 ﻿using UnityEngine;
 
-//enum
 public enum FoodType
 {
-    Hay,
-    Grain,
-    FoodForYourNewAnimal,
-    RottenFood,
-    AnimalFood
+    SitrusBerry,   
+    PomegBerry,    
+    GrepaBerry,    
+    RottenFood,    
+    AnimalFood     
 }
+
 
 public abstract class Animal : MonoBehaviour
 {
-    //Encapsulation
+    // Fields
     private string name;
-    public string Name { get => name; private set => name = string.IsNullOrEmpty(value) ? "Animal" : value; }
-
     private int hunger;
-    public int Hunger { get => hunger; private set => hunger = Mathf.Clamp(value, 0, 100); }
-
     private int happiness;
-    public int Happiness { get => happiness; private set => happiness = Mathf.Clamp(value, 0, 100); }
 
+    // Properties
+    public string Name { get => name; private set => name = string.IsNullOrEmpty(value) ? "Animal" : value; }
+    public int Hunger { get => hunger; private set => hunger = Mathf.Clamp(value, 0, 100); }
+    public int Happiness { get => happiness; private set => happiness = Mathf.Clamp(value, 0, 100); }
     public FoodType PreferedFood { get; private set; }
 
-    //Init
+    // Init
     public virtual void Init(string newName, FoodType fav)
     {
         Name = newName;
@@ -33,11 +32,11 @@ public abstract class Animal : MonoBehaviour
         PreferedFood = fav;
     }
 
-    //Adjust Methods
+    // Adjust
     public void AdjustHunger(int adjust) => Hunger = Mathf.Clamp(Hunger + adjust, 0, 100);
     public void AdjustHappiness(int adjust) => Happiness = Mathf.Clamp(Happiness + adjust, 0, 100);
 
-    //Feed Overloading
+    // Feed (Overloading)
     public void Feed(int amount)
     {
         AdjustHunger(-amount);
@@ -47,6 +46,8 @@ public abstract class Animal : MonoBehaviour
 
     public void Feed(FoodType type, int amount)
     {
+       
+
         if (type == FoodType.RottenFood)
         {
             AdjustHappiness(-20);
@@ -65,24 +66,23 @@ public abstract class Animal : MonoBehaviour
         if (type == PreferedFood)
         {
             AdjustHappiness(+15);
-            Debug.Log($"{Name} enjoyed its favourite food! Happiness:{Happiness}");
+            Debug.Log($"{Name} enjoyed favourite food ({type}). Happiness:{Happiness}");
         }
         else
         {
             AdjustHappiness(amount / 2);
-            Debug.Log($"{Name} ate but didn't prefer this. Happiness:{Happiness}");
+            Debug.Log($"{Name} ate non-preferred food ({type}). Happiness:{Happiness}");
         }
     }
 
-    //GetStatus
+    // GetStatus
     public void GetStatus()
     {
         Debug.Log($"[{GetType().Name}] Name:{Name}, Hunger:{Hunger}, Happiness:{Happiness}, Fav:{PreferedFood}");
     }
 
-    //Abstract Methods
+    // Abstract Methods
     public abstract void MakeSound();
     public abstract string Produce();
 }
-
 

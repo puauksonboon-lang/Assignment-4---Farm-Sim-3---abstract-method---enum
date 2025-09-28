@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 
+
 public class Cow : Animal
 {
     public float Milk { get; private set; }
 
-    public override void Init(string newName, FoodType fav = FoodType.Hay)
+    
+    public override void Init(string newName, FoodType fav = FoodType.SitrusBerry)
     {
         base.Init(newName, fav);
         Milk = 0;
@@ -13,12 +15,13 @@ public class Cow : Animal
     public override void MakeSound()
     {
         AdjustHappiness(+2);
-        Debug.Log($"{Name} Moo Moo! (Happiness:{Happiness})");
+        Debug.Log($"{Name} Moo! Moo! (Happiness:{Happiness})");
     }
 
+    
     public override string Produce()
     {
-        float produced = 0;
+        float produced = 0f;
         if (Happiness > 70)
         {
             produced = Happiness / 10f;
