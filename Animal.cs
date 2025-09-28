@@ -1,5 +1,15 @@
 ﻿using UnityEngine;
 
+//enum
+public enum FoodType
+{
+    Hay,
+    Grain,
+    FoodForYourNewAnimal,
+    RottenFood,
+    AnimalFood
+}
+
 public abstract class Animal : MonoBehaviour
 {
     //Encapsulation
